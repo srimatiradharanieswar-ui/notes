@@ -432,3 +432,323 @@ cout << setw(10) << setprecision(3) << value;
 
 is easier and cleaner than repeatedly calling `cout.width()`, `cout.precision()`, etc.
 
+---
+
+
+# 🌟 **TEMPLATES IN C++**
+
+## 🧩 **TEMPLATES IN C++ (GENERICS)**
+
+* Templates are one of the most powerful and useful features of C++.
+* They allow **generic programming**, which means writing code that works with **any data type**.
+* Templates use **generic data types** as arguments, so they can handle many different kinds of data.
+* A function that works with all C++ data types (like `int`, `float`, `char`, etc.) is called a **generic function**.
+
+---
+
+## 💡 **NEED FOR TEMPLATES**
+
+* Templates help us create **a single function or class** that works with different data types.
+* Using templates, we can write one function that processes **any type of data**—its parameters are of a **generic type**.
+* This means they can accept data of any kind, such as `int`, `float`, or `long`.
+* So, instead of writing multiple functions for each data type, one template function can handle them all.
+* Example: In **function overloading**, we define several functions with the same name but with **different argument types or orders**.
+
+---
+
+## 💡 **NEED FOR TEMPLATES (continued)**
+
+* Usually, we use **function overloading** to handle different data types.
+* For example, one function for adding integers and another for adding floats:
+
+```cpp
+int sum(int x, int y)
+{
+    return x + y;
+}
+
+float sum(float x, float y)
+{
+    return x + y;
+}
+```
+
+* Both functions have the same name but perform addition for different data types.
+* However, this makes the program **longer** and harder to maintain.
+* Templates solve this problem — we can write **one function** that works for **all types**.
+* Templates also make programs **shorter, cleaner, and more flexible** than overloading.
+* With a single template function, we can perform operations on any data type and **reduce program size**.
+
+---
+
+## 🧱 **CLASSIFICATION OF TEMPLATES**
+
+* Templates let us design **multiple versions** of functions or classes easily.
+* There are **two main types** of templates in C++:
+
+  1. **Function Templates** (also called **Generic Functions**)
+  2. **Class Templates** (also called **Generic Classes**)
+* The **`template`** keyword is used to define both types.
+
+---
+
+## ⚙️ **FUNCTION TEMPLATES**
+
+* When a template is used to create a function, it’s called a **function template**.
+* A function template defines **how a function can be built** to work with any data type.
+
+---
+
+### 🧩 **Normal Function Templates**
+
+* A **normal function** (not part of a class) can also use templates.
+* The difference is that:
+
+  * **Normal functions** are defined **outside** any class and can be called directly.
+  * **Member functions** are part of a class and are called **using objects**.
+* So, a normal function template can work independently and still handle multiple data types.
+
+---
+
+### 🧩 **Syntax for a Normal Template Function**
+
+```cpp
+template <class T>
+return_type function_name(arguments)
+{
+    // function body
+}
+```
+
+---
+
+## ✨ **EXAMPLE – Normal Template Function**
+
+```cpp
+#include<iostream>
+using namespace std;
+
+template<class T>
+void show(T x)
+{
+    cout << "x = " << x << endl;
+}
+
+int main()
+{
+    char c = 'A';
+    int i = 65;
+    double d = 65.254;
+    show(c);
+    show(i);
+    show(d);
+    return 0;
+}
+```
+
+**Output:**
+
+```
+x = A
+x = 65
+x = 65.254
+```
+
+---
+
+## ✨ **EXAMPLE – Template Function Returning Value**
+
+```cpp
+#include<iostream>
+using namespace std;
+
+template<class T>
+T sum(T a, T b)
+{
+    return a + b;
+}
+
+int main()
+{
+    cout << "Sum of Integer values = " << sum(5, 9) << endl;
+    cout << "Sum of Float values = " << sum(5.5, 9.6);
+    return 0;
+}
+```
+
+**Output:**
+
+```
+Sum of Integer values = 14
+Sum of Float values = 15.1
+```
+
+---
+
+## 🔀 **FUNCTION TEMPLATES WITH MULTIPLE PARAMETERS**
+
+* Templates can also have **more than one parameter**, so they can handle **different data types at the same time**.
+* This makes them very **flexible and reusable** for different kinds of data.
+
+**Syntax:**
+
+```cpp
+template <typename T1, typename T2, ..., typename Tn>
+return_type function_name(T1 arg1, T2 arg2, ..., Tn argn)
+{
+    // function body
+}
+```
+
+---
+
+### 💻 **Example: Function Template with Different Data Types**
+
+```cpp
+#include<iostream>
+using namespace std;
+
+template<class T1, class T2>
+float sum(T1 a, T2 b)
+{
+    return a + b;
+}
+
+int main()
+{
+    cout << "Sum of Integer values = " << sum(15, 19) << endl;
+    cout << "Sum of Float values = " << sum(5.5, 9.6) << endl;
+    cout << "Sum of Integer and float = " << sum(15, 19.9) << endl;
+    cout << "Sum of Float and Integer = " << sum(5.5, 9) << endl;
+    return 0;
+}
+```
+
+**Output:**
+
+```
+Sum of Integer values = 34
+Sum of Float values = 15.1
+Sum of Integer and float = 34.9
+Sum of Float and Integer = 14.5
+```
+
+---
+
+## 🔁 **OVERLOADING OF TEMPLATE FUNCTIONS**
+
+* Overloading means defining **multiple functions with the same name**, but different parameters.
+* A **template function** can also be **overloaded**, either:
+
+  * by another **normal function**, or
+  * by another **template function**.
+* The compiler follows these rules to choose which function to call:
+
+  1. If it finds an **exact match**, it calls that one.
+  2. If there’s no match, it shows an **error**.
+
+---
+
+### 💻 **Example: Overloaded Template Functions**
+
+```cpp
+#include<iostream>
+using namespace std;
+
+template<class T>
+T sum(T a, T b)
+{
+    return a + b;
+}
+
+template<class T>
+T sum(T a, T b, T c)
+{
+    return a + b + c;
+}
+
+int main()
+{
+    cout << "Sum of two Integers = " << sum(15, 19) << endl;
+    cout << "Sum of two Floats = " << sum(5.5, 9.6) << endl;
+    cout << "Sum of three Integers = " << sum(15, 19, 23) << endl;
+    cout << "Sum of three Floats = " << sum(5.5, 9.8, 7.5) << endl;
+    return 0;
+}
+```
+
+**Output:**
+
+```
+Sum of two Integers = 34
+Sum of two Floats = 15.1
+Sum of three Integers = 57
+Sum of three Floats = 22.8
+```
+
+---
+
+## 🧱 **CLASS TEMPLATES**
+
+* A **class template** is a class that can work with any data type.
+* It describes **how a class can be built generically**, just like function templates describe functions.
+* These are also called **generic classes**.
+* The statement `template<class T>` tells the compiler that the class uses a **template data type (T)**.
+* Important notes:
+
+  * Templates **cannot be declared inside** other classes or functions.
+  * They must be **declared globally**.
+
+---
+
+### 🧩 **General Form of a Class Template**
+
+```cpp
+template<class T>
+class ClassName
+{
+    // class definition
+};
+```
+
+* A class created from this template is called a **template class**.
+* To create an object of a template class, we use this syntax:
+  `ClassName<type> objectName(arguments);`
+
+---
+
+### 💻 **Example: Class Template**
+
+```cpp
+#include<iostream>
+using namespace std;
+
+template<class T>
+class Data
+{
+public:
+    Data(T c)
+    {
+        cout << c << " Size in bytes: " << sizeof(c) << endl;
+    }
+};
+
+int main()
+{
+    Data<char> h('A');
+    Data<int> i(100);
+    Data<float> j(68.2);
+    return 0;
+}
+```
+
+**Output:**
+
+```
+A Size in bytes: 1
+100 Size in bytes: 4
+68.2 Size in bytes: 4
+```
+
+---
+
